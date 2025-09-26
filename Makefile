@@ -1,11 +1,20 @@
 # Compiler is c++ clang
 CXX = clang++
 
+# Local, untracked variables (per developer)
+-include makefile.local.env
+
+ifndef GLFW_ROOT
+$(error Please set GLFW_ROOT in makefile.local.env in same directory as Makefile: "GLFW_ROOT := C:/msys64/clang64")
+endif
+
 # Compile with all warnings and c++17 in mind
 CXXFLAGS = -Wall -std=c++17 -MMD -MP -Iinclude
+CXXFLAGS += -I"$(GLFW_ROOT)/include"
+LDFLAGS = -L"$(GLFW_ROOT)/lib"
 
 # External Link
-EXLINKS = -lglfw3 -lopengl32 -lgdi32
+EXLINKS = -lglfw3 -lopengl32 -lgdi32 -luser32 -lshell32 -lwinmm
 
 # Just grab every cpp file in src
 SRC = $(wildcard ./src/*.cpp)
@@ -28,7 +37,7 @@ all: $(TARGET)
 
 # Target rule depends on all the object files
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(EXLINKS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) $(EXLINKS)
 
 # Object file rule to build .o files from .cpp
 # Also ensures obj directory exists
