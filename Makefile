@@ -1,5 +1,6 @@
 # Compiler is c++ clang
 CXX = clang++
+CC = clang
 
 # Local, untracked variables (per developer)
 -include makefile.local.env
@@ -9,17 +10,21 @@ $(error Please set GLFW_ROOT in makefile.local.env in same directory as Makefile
 endif
 
 # Compile with all warnings and c++17 in mind
-CXXFLAGS = -Wall -std=c++17 -MMD -MP -Iinclude
-CXXFLAGS += -I"$(GLFW_ROOT)/include"
+CXXFLAGS = -Wall -std=c++17 -MMD -MP -Iinclude -I"$(GLFW_ROOT)/include"
 LDFLAGS = -L"$(GLFW_ROOT)/lib"
+
+CFLAGS = -Wall -std=c17 -MMD -MP -Iinclude -I"$(GLFW_ROOT)/include"
 
 # External Link
 EXLINKS = -lglfw3 -lopengl32 -lgdi32 -luser32 -lshell32 -lwinmm
 
 # Just grab every cpp file in src
-SRC = $(wildcard ./src/*.cpp)
+SRC_CPP = $(wildcard ./src/*.cpp)
+SRC_C = include/glad.c
 # Object files are routed to obj directory
-OBJ = $(patsubst ./src/%.cpp, ./obj/%.o, $(SRC))
+OBJ_CPP = $(patsubst ./src/%.cpp, ./obj/%.o, $(SRC_CPP))
+OBJ_C = $(patsubst include/%.c, ./obj/%.o, $(SRC_C))
+OBJ = $(OBJ_CPP) $(OBJ_C)
 # Adding .d files to track hpp files
 DEPS = $(OBJ:.o=.d)
 
@@ -43,6 +48,9 @@ $(TARGET): $(OBJ)
 # Also ensures obj directory exists
 ./obj/%.o: ./src/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+./obj/%.o: ./include/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	-del /Q .\obj\*.o .\obj\*.d 2>nul
