@@ -1,10 +1,11 @@
 #include "test.hpp"
-#include "window.hpp"
 #include <iostream>
+#include "cameraTest1.cpp"
+#include "runLightingTest1.hpp"
 
 
 int main() {
     Test();
-    Window();
+    runLightingTest1();
     return 0;
 }

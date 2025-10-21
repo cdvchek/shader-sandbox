@@ -2,7 +2,9 @@
 #include <glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+#include <math.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 int Window();

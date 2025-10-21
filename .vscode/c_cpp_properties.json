@@ -5,14 +5,14 @@
       "includePath": [
         "${workspaceFolder}/include",
         "${workspaceFolder}/src",
-        "C:/msys64/clang64/include"
+        "E:\\1Home\\ComputerScience\\Libraries\\msys2\\mingw64\\include"
       ],
       "defines": [
         "_DEBUG",
         "UNICODE"
       ],
       "windowsSdkVersion": "10.0.22621.0",
-      "compilerPath": "C:/llvm-mingw/bin/clang++.exe",
+      "compilerPath": "clang++",
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "windows-clang-x64"
