@@ -3,34 +3,34 @@ Int material.diffuse 0
 Int material.specular 1
 Float material.shininess 32.0
 Vec3 dirLight.direction 0.5 0.5 0.5 
-Vec3 dirLight.ambient 0.1 0.1 0.1 
+Vec3 dirLight.ambient 0.2 0.2 0.2
 Vec3 dirLight.diffuse 0.5 0.5 0.5 
 Vec3 dirLight.specular 0.2 0.2 0.2 
 
 Float pointLights[0].constant 1.0 
-Float pointLights[0].linear 0.005
-Float pointLights[0].quadratic 0.016 	 
+Float pointLights[0].linear 0.5
+Float pointLights[0].quadratic 0.01
 Vec3 pointLights[0].ambient 0.00 0.00 0.00 
-Vec3 pointLights[0].diffuse 1.0 0.5 0.5 
-Vec3 pointLights[0].specular 1.0 1.0 1.0 
+Vec3 pointLights[0].diffuse 2 0 2
+Vec3 pointLights[0].specular 2 2 2
 
 Float pointLights[1].constant 1.0 
 Float pointLights[1].linear 0.05 
 Float pointLights[1].quadratic 0.016 	 
 Vec3 pointLights[1].ambient 0.00 0.00 0.00 
-Vec3 pointLights[1].diffuse 0.5 1.0 0.5 
+Vec3 pointLights[1].diffuse 1 0 0
 Vec3 pointLights[1].specular 1.0 1.0 1.0 
 
 Float pointLights[2].constant 1.0 
 Float pointLights[2].linear 0.05 
 Float pointLights[2].quadratic 0.004 	 
 Vec3 pointLights[2].ambient 0.00 0.00 0.00 
-Vec3 pointLights[2].diffuse 0.5 0.5 1.0
+Vec3 pointLights[2].diffuse 1 0 0
 Vec3 pointLights[2].specular 1.0 1.0 1.0 
 
 Float pointLights[3].constant 1.0 
-Float pointLights[3].linear 0.05 
+Float pointLights[3].linear 0.5
 Float pointLights[3].quadratic 0.016 	 
 Vec3 pointLights[3].ambient 0.00 0.00 0.00 
-Vec3 pointLights[3].diffuse 0.5 0.5 0.5 
-Vec3 pointLights[3].specular 1.0 1.0 1.0
+Vec3 pointLights[3].diffuse 0 2 0
+Vec3 pointLights[3].specular 2 2 2

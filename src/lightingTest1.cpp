@@ -9,9 +9,10 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <filesystem>
+#include "model.hpp"
 #include "Shader.hpp"
 #include "runLightingTest1.hpp"
-#include "model.hpp"
 
 #define NUM_POINT_LIGHTS 4
 Shader* lightingShader = nullptr;
@@ -19,7 +20,7 @@ Shader* lightCubeShader = nullptr;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-glm::vec3 baseLightPos	= glm::vec3(3.0f, 3.0f, 3.0f);
+glm::vec3 baseLightPos	= glm::vec3(2.5f, 2.5f, 2.5f);
 float viewportWidth = 800;
 float viewportHeight = 600;
 float yaw = -90.0f;
@@ -76,14 +77,14 @@ float lightingTestVertices[] = {
 };
 glm::vec3 pointLightPositions[] = {
 	glm::vec3( 0.7f,  0.2f,  2.0f),
-	glm::vec3( 4, 4, 4),
-	glm::vec3(-4,  -4, -4),
-	glm::vec3( 2,  -2, -2)
+	glm::vec3( 0, 3, 0),
+	glm::vec3(0, -3, 0),
+	glm::vec3( 2,  -2.5, -2)
 };  
 glm::vec3 cubePositions [] = {
 	glm::vec3( 1, 1, -1),
-	glm::vec3( -1, -1, -1),
-	glm::vec3( -1, 1, 1),
+	glm::vec3( 0, -1, 0),
+	glm::vec3( 0, 1, 0),
 	glm::vec3( 1, -1, 1)
 };
 
@@ -164,7 +165,7 @@ void readUniforms(Shader* shader, const char* path) {
 
 void initShaders() {
 	std::cout << "loading shaders..." << std::endl;
-	lightingShader = new Shader("src/Shaders/lightingVert.vert", "src/Shaders/multipleLights.frag");
+	lightingShader = new Shader("src/Shaders/lightingVert.vert", "src/Shaders/cel.frag");
 
 
 	lightingShader->use();
@@ -294,30 +295,42 @@ GLFWwindow* initWindow() {
 	return window;
 }
 
+static std::string getPath(const std::string &relativePath) {
+	return std::filesystem::current_path().string() + "/" + relativePath;
+}
+
 void runLightingTest1() {
 	GLFWwindow* window = initWindow();
 	if (window == NULL) 
 		return;
 
 	unsigned int lightCubeVAO, VBO;
-	glGenBuffers(1, &VBO);
 
+	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &lightCubeVAO);
+
 	glBindVertexArray(lightCubeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(lightingTestVertices), lightingTestVertices, GL_STATIC_DRAW);
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
+	// Load & set up the textures
 	stbi_set_flip_vertically_on_load(true);
-	glEnable(GL_DEPTH_TEST);
+
+	Model backpack = Model("assets/backpack/backpack.obj");
 
 	initShaders();
-	Model model = Model("assets/backpack/backpack.obj");
+	glEnable(GL_DEPTH_TEST);
 
 	// Render loop
 	while(!glfwWindowShouldClose(window))
 	{
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -326,11 +339,15 @@ void runLightingTest1() {
 		lastFrame = currentFrame;  
 		processInput(window);
 
-		pointLightPositions[0] = glm::vec3(baseLightPos.x * sin(glfwGetTime()), baseLightPos.y, baseLightPos.z * cos(glfwGetTime()));
+		pointLightPositions[0] = glm::vec3(baseLightPos.x * sin(glfwGetTime()), 
+				baseLightPos.y * cos(glfwGetTime() + 3.141592), baseLightPos.z * cos(glfwGetTime()));
+		pointLightPositions[3] = glm::vec3(baseLightPos.x * cos(glfwGetTime()), 
+				baseLightPos.y * sin(glfwGetTime()), baseLightPos.z * sin(glfwGetTime()));
 
 		// Render the cubes.
 		glm::mat4 view;
 		glm::mat4 projection; 
+		glm::mat4 model = glm::mat4(1.0f);
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		projection = glm::perspective(glm::radians(fov), viewportWidth / viewportHeight, 0.1f, 100.0f);  
 
@@ -338,19 +355,14 @@ void runLightingTest1() {
 		lightingShader->setVec3("viewPos", cameraPos); 
 		lightingShader->setMat4("view", view);
 		lightingShader->setMat4("projection", projection);
+		lightingShader->setMat4("model", model);
 		for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
 			std::stringstream s;
 			s << "pointLights[" << i << "].position";
 			lightingShader->setVec3(s.str(), pointLightPositions[i]);
 		}
 
-		for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
-			glm::mat4 lightModel = glm::mat4(1.0f);
-			lightModel = glm::translate(lightModel, cubePositions[i]);
-			lightingShader->setMat4("model", lightModel);
-			model.Draw(*lightingShader);
-		}
-		
+		backpack.Draw(*lightingShader);	
 
 		// Light Sources
 		lightCubeShader->use();
@@ -374,6 +386,7 @@ void runLightingTest1() {
 		glfwSwapBuffers(window); 
 	}
 
+	std::cout << "terminating" << std::endl;
 	glfwTerminate();
 	return;
 }
