@@ -206,7 +206,26 @@ private:
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma)
 {
     string filename = string(path);
-    filename = directory + '/' + filename;
+
+    // ChatGPT wrote this. 
+    // --- Path fix begin ---
+    // If the model references an absolute path (like D:\3D\Characters\texture.jpg)
+    // and that file doesn’t exist locally, try resolving it relative to the model folder.
+    std::ifstream fileCheck(filename);
+    if (!fileCheck.good()) {
+        // Extract just the filename
+        size_t pos = filename.find_last_of("/\\");
+        string justName = (pos == string::npos) ? filename : filename.substr(pos + 1);
+
+        // Try same folder as model
+        string candidate = directory + '/' + justName;
+        std::ifstream relCheck(candidate);
+        if (relCheck.good()) {
+            filename = candidate;
+        }
+        // Optional: you could also check directory + "/textures/" + justName
+    }
+    // --- Path fix end ---
 
     unsigned int textureID;
     glGenTextures(1, &textureID);
