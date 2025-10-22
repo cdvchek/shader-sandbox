@@ -16,7 +16,7 @@ LDFLAGS = -L"$(GLFW_ROOT)/lib"
 CFLAGS = -Wall -std=c17 -MMD -MP -Iinclude -I"$(GLFW_ROOT)/include"
 
 # External Link
-EXLINKS = -lglfw3 -lopengl32 -lgdi32 -luser32 -lshell32 -lwinmm
+EXLINKS = -lglfw3 -lopengl32 -lgdi32 -luser32 -lshell32 -lwinmm -lassimp
 
 # Just grab every cpp file in src
 SRC_CPP = $(wildcard ./src/*.cpp)

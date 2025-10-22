@@ -1,0 +1,1 @@
+void runLightingTest1();
