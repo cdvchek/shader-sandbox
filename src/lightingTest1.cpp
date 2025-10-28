@@ -10,13 +10,32 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
-#include "model.hpp"
+#include <variant>
+#include "Model.hpp"
 #include "Shader.hpp"
 #include "runLightingTest1.hpp"
-
 #define NUM_POINT_LIGHTS 4
-Shader* lightingShader = nullptr;
-Shader* lightCubeShader = nullptr;
+
+using UniformValue = std::variant<int, float, glm::vec3, glm::vec4>;
+enum class UniformType {
+	NoType,
+	Int,
+	Float,
+	Vec3,
+	Vec4,
+	UniformRef
+};
+struct Uniform {
+	std::string name;
+	std::string shaderName;
+	UniformType type;
+	UniformValue value;
+	bool wasUniformRef = false;
+};
+
+std::map<std::string, std::map<std::string, Uniform>> uniforms;
+unique_ptr<Shader> lightingShader = nullptr;
+unique_ptr<Shader> lightCubeShader = nullptr;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
@@ -82,21 +101,90 @@ glm::vec3 pointLightPositions[] = {
 	glm::vec3( 2,  -2.5, -2)
 };  
 glm::vec3 cubePositions [] = {
-	glm::vec3( 1, 1, -1),
+	
 	glm::vec3( 0, -1, 0),
 	glm::vec3( 0, 1, 0),
 	glm::vec3( 1, -1, 1)
 };
 
-void readUniforms(Shader* shader, const char* path) {
-	enum UniformType {
-		NoType,
-		Int,
-		Float,
-		Vec3,
-		Vec4,
-	};
+bool initUniformValue(Uniform *uniform, const Shader *shader, std::istringstream& ss) {
+	// Set value
+	switch(uniform->type) {
+		case UniformType::NoType:
+			std::cout << "Not a valid type! " << std::endl;
+			return false; // failure
+		case UniformType::Int: {
+			int intValue;
+			ss >> intValue;
+			shader->setInt(uniform->name, intValue);
+			uniform->value = intValue;
+			break;
+		}
+		case UniformType::Float: {
+			float floatValue;
+			ss >> floatValue;
+			shader->setFloat(uniform->name, floatValue);
+			uniform->value = floatValue;
+			break;
+		}
+		case UniformType::Vec3: {
+			float vec3Value1, vec3Value2, vec3Value3;
+			ss >> vec3Value1; ss >> vec3Value2; ss >> vec3Value3;
+			glm::vec3 vec3(vec3Value1, vec3Value2, vec3Value3);
+			shader->setVec3(uniform->name, vec3);
+			uniform->value = vec3;
+			break;
+		}
+		case UniformType::Vec4: {
+			float vec4Value1, vec4Value2, vec4Value3, vec4Value4;
+			ss >> vec4Value1; ss >> vec4Value2; ss >> vec4Value3; ss >> vec4Value4;
+			glm::vec4 vec4(vec4Value1, vec4Value2, vec4Value3, vec4Value4);
+			shader->setVec4(uniform->name, vec4Value1, vec4Value2, vec4Value3, vec4Value4);
+			uniform->value = vec4;
+			break;
+		}
+		case UniformType::UniformRef: {
+			// Later, I'd like to defer this so you don't need to have all your uniform refs at the end of the file
+			std::string shaderName;
+			ss >> shaderName;
+			std::string refName;
+			ss >> refName;
+			
+			// Uniform Refs need to be placed AFTER the uniform they're referencing. If not, we need to warn them it's a bad file
+			if (uniforms.count(shaderName) == 0) {
+				std::cout << "bad shader name!: " << shaderName << std::endl;
+				return false;
+			}
+			else if (uniforms[shaderName].count(refName) == 0) {
+				std::cout << "Uniform ref needs to be placed AFTER the uniform it's referencing!" << std::endl;
+				return false;
+			}
 
+			Uniform ref = uniforms[shaderName][refName];
+			uniform->value = ref.value;
+			uniform->type = ref.type;
+			uniform->wasUniformRef = true;
+			switch (ref.type) {
+				case UniformType::Int: 
+					shader->setInt(uniform->name, std::get<int>(ref.value));
+					break;
+				case UniformType::Float:
+					shader->setFloat(uniform->name, std::get<float>(ref.value));
+					break;
+				case UniformType::Vec3:
+					shader->setVec3(uniform->name, std::get<glm::vec3>(ref.value));
+					break;
+				case UniformType::Vec4:
+					shader->setVec4(uniform->name, std::get<glm::vec4>(ref.value));
+					break;
+			}
+			break;
+		}
+	}
+	return true;
+}
+
+void readUniforms(const Shader *shader, const char* path) {
 	shader->use();
 
 	std::ifstream file(path);
@@ -105,76 +193,125 @@ void readUniforms(Shader* shader, const char* path) {
 		return;
 	}
 	std::string line;
+	std::string shaderName;
+	{
+		std::getline(file, line);
+		std::istringstream ss(line);
+		
+		if (!(ss >> shaderName) || shaderName == "") {
+			std::cerr << "Failed to read shader name from top of file!" << line << std::endl;
+			return;
+		}
+
+		// Check if there’s any extra text
+		std::string extra;
+		if (ss >> extra) {
+			std::cerr << "Unexpected extra text on top line: " << line << std::endl;
+			return;
+		}
+
+		if (uniforms.count(shaderName) > 0) {
+			std::cout << "Error: duplicate shader names!" << line << std::endl;
+			return;
+		}
+	}
 	while (std::getline(file, line)) {
 		// Types: Int, Float, Vec3
 		if (line.empty() || line[0] == '#') continue;
 		std::istringstream ss(line);
 		std::string typeStr;
-		std::string uniformName;
+		Uniform uniform;
+		uniform.shaderName = shaderName;
 		ss >> typeStr;
-		ss >> uniformName;
+		ss >> uniform.name;
+		
+		if (uniforms.count(shaderName) > 0 && uniforms[shaderName].count(uniform.name) > 0) {
+			std::cout << "duplicate name! " << uniform.name << std::endl;
+		}
+
+		// Parse uniform type from first word
 		char firstChar = typeStr[0];	
-		UniformType type = UniformType::NoType;
 		switch(firstChar) { 
 			case 'I':
 				if (typeStr == "Int") 
-					type = UniformType::Int;
+					uniform.type = UniformType::Int;
 				break;
 			case 'F':
 				if (typeStr == "Float") 
-					type = UniformType::Float;
+					uniform.type = UniformType::Float;
 				break;
 			case 'V':
 				if (typeStr == "Vec3") 
-					type = UniformType::Vec3;
+					uniform.type = UniformType::Vec3;
 				else if (typeStr == "Vec4") {
-					type = UniformType::Vec4;
+					uniform.type = UniformType::Vec4;
 				}
 				break;
+			case 'U': 
+				if (typeStr == "Uniform")
+					uniform.type = UniformType::UniformRef;
 		}
-		switch(type) {
-			case UniformType::NoType:
-				std::cout << "Not a valid type: " << typeStr << std::endl;
-				break;
-			case UniformType::Int:
-				int intValue;
-				ss >> intValue;
-				shader->setInt(uniformName, intValue);
-				break;
-			case UniformType::Float:
-				float floatValue;
-				ss >> floatValue;
-				shader->setFloat(uniformName, floatValue);
-				break;
-			case UniformType::Vec3:
-				float vec3Value1, vec3Value2, vec3Value3;
-				ss >> vec3Value1; ss >> vec3Value2; ss >> vec3Value3;
-				shader->setVec3(uniformName, vec3Value1, vec3Value2, vec3Value3);
-				break;
-			case UniformType::Vec4:
-				float vec4Value1, vec4Value2, vec4Value3, vec4Value4;
-				ss >> vec4Value1; ss >> vec4Value2; ss >> vec4Value3; ss >> vec4Value4;
-				shader->setVec4(uniformName, vec4Value1, vec4Value2, vec4Value3, vec4Value4);
-				break;
+
+		bool success = initUniformValue(&uniform, shader, ss);
+		if (ss.fail() || !success) {
+			std::cout << "failed to read line: " << line << std::endl;
 		}
-		if (ss.fail()) {
-			std::cout << "failed to read " << uniformName << std::endl;
+		else {
+			uniforms[uniform.shaderName][uniform.name] = uniform;
 		}
 	}
 }
 
 void initShaders() {
+	uniforms.clear();
 	std::cout << "loading shaders..." << std::endl;
-	lightingShader = new Shader("src/Shaders/lightingVert.vert", "src/Shaders/cel.frag");
-
+	lightingShader = std::make_unique<Shader>("src/Shaders/lightingVert.vert", "src/Shaders/cel.frag");
 
 	lightingShader->use();
-	readUniforms(lightingShader, "src/uniforms/multipleLights.txt");
+	readUniforms(lightingShader.get(), "src/uniforms/multipleLights.txt");
 
-	lightCubeShader = new Shader("src/Shaders/lightCubeVert.vert", "src/Shaders/lightCube.frag");
+	lightCubeShader = std::make_unique<Shader>("src/Shaders/lightCubeVert.vert", "src/Shaders/lightCube.frag");
 	lightCubeShader->use();
+	readUniforms(lightCubeShader.get(), "src/uniforms/lightCube.txt");
 	// lightCubeShader->setVec3("objectColor", .5f, 1.0f, .5f);
 	// lightCubeShader->setVec3("lightColor",  .5f, 1.0f, .5f);
+
+	for (const auto& [shaderName, shaderUniforms] : uniforms) {
+    std::cout << "Shader: " << shaderName << std::endl;
+
+    for (const auto& [uniformName, uniform] : shaderUniforms) {
+        std::cout << "  " << uniformName << " (type: ";
+		if (uniform.wasUniformRef)
+			std::cout << " Uniform Ref -> ";
+        switch (uniform.type) {
+            case UniformType::Int:
+                std::cout << "Int) = " << std::get<int>(uniform.value);
+                break;
+            case UniformType::Float:
+                std::cout << "Float) = " << std::get<float>(uniform.value);
+                break;
+            case UniformType::Vec3: {
+                auto v = std::get<glm::vec3>(uniform.value);
+                std::cout << "Vec3) = (" << v.x << ", " << v.y << ", " << v.z << ")";
+                break;
+            }
+            case UniformType::Vec4: {
+                auto v = std::get<glm::vec4>(uniform.value);
+                std::cout << "Vec4) = (" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+                break;
+            }
+            case UniformType::UniformRef:
+                std::cout << "UniformRef)";
+                break;
+            default:
+                std::cout << "Unknown)";
+                break;
+        }
+
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
 }
 
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -322,7 +459,7 @@ void runLightingTest1() {
 	// Load & set up the textures
 	stbi_set_flip_vertically_on_load(true);
 
-	Model backpack = Model("assets/backpack/backpack.obj");
+	Model backpack = Model("assets/models/young-link-ssbu/source/Young Link.obj");
 
 	initShaders();
 	glEnable(GL_DEPTH_TEST);
@@ -347,7 +484,7 @@ void runLightingTest1() {
 		// Render the cubes.
 		glm::mat4 view;
 		glm::mat4 projection; 
-		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(1, 0, 0)); // blender uses Z as up so we need to reorient him.
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		projection = glm::perspective(glm::radians(fov), viewportWidth / viewportHeight, 0.1f, 100.0f);  
 
@@ -376,6 +513,9 @@ void runLightingTest1() {
 			cubeModel = glm::translate(cubeModel, pointLightPositions[i]);
 			cubeModel = glm::scale(cubeModel, glm::vec3(0.2f)); 
 			lightCubeShader->setMat4("model", cubeModel);
+			if (i > 0) {
+				lightCubeShader->setVec3("color", glm::vec3(1.0f));
+			}
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 

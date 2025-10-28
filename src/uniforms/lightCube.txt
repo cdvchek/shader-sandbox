@@ -1,0 +1,3 @@
+lightCube
+
+Uniform color multipleLights pointLights[0].diffuse
