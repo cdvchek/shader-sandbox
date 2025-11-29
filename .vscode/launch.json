@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (LLVM Clang + LLDB)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/main.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build with Makefile",
+      "env": {
+        "PATH": "C:\\Program Files\\LLVM\\bin;${env:PATH}"
+      }
+    }
+  ]
+}

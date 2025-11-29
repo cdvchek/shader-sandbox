@@ -4,6 +4,8 @@
       "name": "Win32",
       "includePath": [
         "${workspaceFolder}/include",
+        "${workspaceFolder}/include/imgui",
+        "${workspaceFolder}/include/imgui/backends",
         "${workspaceFolder}/src",
         "E:\\1Home\\ComputerScience\\Libraries\\msys2\\mingw64\\include"
       ],

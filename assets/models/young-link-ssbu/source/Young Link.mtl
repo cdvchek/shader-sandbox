@@ -1,0 +1,282 @@
+# Blender 3.6.5 MTL File: 'None'
+# www.blender.org
+
+newmtl EyeL.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_b_col.png
+map_d eye_younglink_b_col.png
+
+newmtl EyeL.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeLD.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd deyes_eye_younglink_wd_col.png
+map_d deyes_eye_younglink_wd_col.png
+
+newmtl EyeLD.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd deyes_eye_younglink_wd_col.png
+map_d deyes_eye_younglink_wd_col.png
+
+newmtl EyeLG.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeLG.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeLL.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeLL.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeR.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_b_col.png
+map_d eye_younglink_b_col.png
+
+newmtl EyeR.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeRD.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd deyes_eye_younglink_wd_col.png
+map_d deyes_eye_younglink_wd_col.png
+
+newmtl EyeRD.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd deyes_eye_younglink_wd_col.png
+map_d deyes_eye_younglink_wd_col.png
+
+newmtl EyeRG.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeRG.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeRL.002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl EyeRL.003
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd eye_younglink_w_col.png
+map_d eye_younglink_w_col.png
+
+newmtl ShaderfxShader19
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd skin_younglink_01_col.png
+map_d skin_younglink_01_col.png
+
+newmtl ShaderfxShader19.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd skin_younglink_01_col.png
+map_d skin_younglink_01_col.png
+
+newmtl alp_younglink_000
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd alp_younglink_00_col.png
+map_d alp_younglink_00_col.png
+
+newmtl alp_younglink_000.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd alp_younglink_00_col.png
+map_d alp_younglink_00_col.png
+
+newmtl alp_younglink_002
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd alp_younglink_02_col.png
+map_d alp_younglink_02_col.png
+
+newmtl alp_younglink_002.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd alp_younglink_02_col.png
+map_d alp_younglink_02_col.png
+
+newmtl def_younglink_000
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd def_younglink_00_col.png
+map_d def_younglink_00_col.png
+
+newmtl def_younglink_000.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd def_younglink_00_col.png
+map_d def_younglink_00_col.png
+
+newmtl metal_younglink_000
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd metal_younglink_00_col.png
+map_d metal_younglink_00_col.png
+
+newmtl metal_younglink_000.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd metal_younglink_00_col.png
+map_d metal_younglink_00_col.png
+
+newmtl skin_younglink_000
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd skin_younglink_00_col.png
+map_d skin_younglink_00_col.png
+
+newmtl skin_younglink_000.001
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 1
+map_Kd skin_younglink_00_col.png
+map_d skin_younglink_00_col.png

@@ -1,0 +1,18 @@
+Hey all this is my notes for tuesday.
+I've got an inspector to write as well as renderer.
+NEEDS:
+- Imgui renderer
+  - Shader includer
+    - List w/ file names from the shader folder. Maybe I'll hardcode?
+      - Hardcode for now...
+  - World data editor
+    - Only cubes for now
+    - Add cube button
+      - Vertex, Frag
+      - Position
+      - Rotation
+      - Scale
+  - Working inspector with inputs for each thing to edit the values 
+    - Each type gets one
+    - Filled out automatically with defaults?
+      - Do this for now. Later I can add saving if I have time.

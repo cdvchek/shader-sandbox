@@ -1,0 +1,4 @@
+CompileFlags:
+  Add: [-xc++, -I"E:\1Home\ComputerScience\Libraries\msys2\clang64\include", -Wall, -std=c++17, -MMD, -MP, -Iinclude]
+  Compiler: clang++
+

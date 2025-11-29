@@ -1,0 +1,247 @@
+[
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "src/cameraTest1.cpp",
+   "-o",
+   "obj/cameraTest1.o"
+  ],
+  "file": "src/cameraTest1.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "src/lightingTest1.cpp",
+   "-o",
+   "obj/lightingTest1.o"
+  ],
+  "file": "src/lightingTest1.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "src/test.cpp",
+   "-o",
+   "obj/test.o"
+  ],
+  "file": "src/test.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "src/window.cpp",
+   "-o",
+   "obj/window.o"
+  ],
+  "file": "src/window.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/imgui.cpp",
+   "-o",
+   "obj/imgui_imgui.o"
+  ],
+  "file": "include/imgui/imgui.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/imgui_demo.cpp",
+   "-o",
+   "obj/imgui_imgui_demo.o"
+  ],
+  "file": "include/imgui/imgui_demo.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/imgui_draw.cpp",
+   "-o",
+   "obj/imgui_imgui_draw.o"
+  ],
+  "file": "include/imgui/imgui_draw.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/imgui_tables.cpp",
+   "-o",
+   "obj/imgui_imgui_tables.o"
+  ],
+  "file": "include/imgui/imgui_tables.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/imgui_widgets.cpp",
+   "-o",
+   "obj/imgui_imgui_widgets.o"
+  ],
+  "file": "include/imgui/imgui_widgets.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/backends/imgui_impl_glfw.cpp",
+   "-o",
+   "obj/backend_imgui_impl_glfw.o"
+  ],
+  "file": "include/imgui/backends/imgui_impl_glfw.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang++",
+   "-Wall",
+   "-std=c++17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-Iinclude/imgui",
+   "-Iinclude/imgui/backends",
+   "-c",
+   "include/imgui/backends/imgui_impl_opengl3.cpp",
+   "-o",
+   "obj/backend_imgui_impl_opengl3.o"
+  ],
+  "file": "include/imgui/backends/imgui_impl_opengl3.cpp"
+ },
+ {
+  "directory": "E:\\1Home\\ComputerScience\\Libraries\\msys2\\home\\Micah\\projects\\shader-sandbox",
+  "arguments": [
+   "clang",
+   "-Wall",
+   "-std=c17",
+   "-MMD",
+   "-MP",
+   "-Iinclude",
+   "-IE:1HomeComputerScienceLibrariesmsys2mingw64/include",
+   "-c",
+   "include/glad.c",
+   "-o",
+   "obj/glad.o"
+  ],
+  "file": "include/glad.c"
+ }
+]

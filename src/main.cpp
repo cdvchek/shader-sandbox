@@ -1,11 +1,10 @@
-#include "test.hpp"
+#include "renderer.hpp"
 #include <iostream>
-#include "cameraTest1.cpp"
-#include "runLightingTest1.hpp"
-
 
 int main() {
-    Test();
-    runLightingTest1();
-    return 0;
+  std::cout << "Initializing Renderer" << std::endl;
+  Renderer renderer;
+  std::cout << "Starting Renderer" << std::endl;
+  renderer.startRenderer();
+  return 0;
 }

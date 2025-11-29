@@ -1,0 +1,14 @@
+{
+    "shaders": {
+        "lightSource": {
+            "fragment": "src/Shaders/lightCube.frag",
+            "uniforms": {},
+            "vertex": "src/Shaders/lightCubeVert.vert"
+        },
+        "litCube": {
+            "fragment": "src/Shaders/multipleLights.frag",
+            "uniforms": {},
+            "vertex": "src/Shaders/lightingVert.vert"
+        }
+    }
+}

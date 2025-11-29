@@ -1,0 +1,11 @@
+Model Information:
+* title:	Link Cartoon
+* source:	https://sketchfab.com/3d-models/link-cartoon-93f0d5a60eb74f2f857a3257cf578687
+* author:	Stewart Budd (https://sketchfab.com/StewartB)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Link Cartoon" (https://sketchfab.com/3d-models/link-cartoon-93f0d5a60eb74f2f857a3257cf578687) by Stewart Budd (https://sketchfab.com/StewartB) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
